@@ -24,6 +24,13 @@
     <div class="ocean__shallow"></div>
     <div class="ocean__deep"></div>
     <div class="ocean__rays"></div>
+    <svg class="glider" viewBox="0 0 200 120">
+      <g class="glider__fl glider__fl--top"><path d="M122 38 C 134 6, 104 -8, 78 8 C 96 14, 110 24, 114 40 Z"/></g>
+      <g class="glider__fl glider__fl--bot"><path d="M122 82 C 134 114, 104 128, 78 112 C 96 106, 110 96, 114 80 Z"/></g>
+      <path d="M62 44 C 46 32, 36 38, 42 48 Z M62 76 C 46 88, 36 82, 42 72 Z M52 60 L 36 57 L 36 63 Z"/>
+      <ellipse cx="96" cy="60" rx="46" ry="33"/>
+      <ellipse cx="152" cy="60" rx="15" ry="11"/>
+    </svg>
   </div>
   <canvas id="bubbles" aria-hidden="true"></canvas>
 
@@ -49,15 +56,17 @@
     <section class="hero">
       <svg class="jelly jelly--l" viewBox="0 0 120 220" aria-hidden="true"><use href="#jellyfish"/></svg>
       <svg class="jelly jelly--r" viewBox="0 0 120 220" aria-hidden="true"><use href="#jellyfish"/></svg>
+      <div class="sh sh--lilac sh--hero-r sh--flip" data-art="seahorse"></div>
+      <div class="sh sh--coral sh--hero-l" data-art="seahorse"></div>
 
       <div class="arch reveal">
         <svg class="arch__curve" viewBox="0 0 400 110" aria-hidden="true">
           <path id="curve" d="M 45 105 A 170 150 0 0 1 355 105" fill="none"/>
-          <text><textPath href="#curve" startOffset="50%" text-anchor="middle" data-i18n="hero.invite">We would love to invite you…</textPath></text>
+          <text><textPath href="#curve" startOffset="50%" text-anchor="middle" data-i18n="hero.invite">You are invited…</textPath></text>
         </svg>
         <img class="arch__logo" src="assets/turtles.webp" width="600" height="600"
              alt="Two sea turtles — a bride in a veil and a groom in a top hat — inside a heart of seaweed with bells marked J and S">
-        <hr class="dots">
+        <div class="ornament arch__orn" aria-hidden="true"><span>✦</span></div>
         <p class="arch__to" data-i18n="hero.to">To the wedding celebration of</p>
         <h1 class="arch__names">
           <span data-i18n="hero.bride">Stephanie Parker</span>
@@ -130,6 +139,8 @@
 
     <!-- ───────────── RSVP ───────────── -->
     <section class="section section--rsvp" id="rsvp">
+      <div class="sh sh--teal sh--rsvp" data-art="seahorse"></div>
+      <svg class="jelly jelly--rsvp" viewBox="0 0 120 220" aria-hidden="true"><use href="#jellyfish"/></svg>
       <div class="container container--narrow">
         <header class="section__head reveal">
           <h2 data-i18n="rsvp.title">Will you join us?</h2>
@@ -384,6 +395,25 @@
         <stop offset="70%" stop-color="#f3b9cc"/>
         <stop offset="100%" stop-color="#e79bb5" stop-opacity=".85"/>
       </radialGradient>
+      <linearGradient id="sh-lilac" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#eadcfb"/><stop offset=".45" stop-color="#b9a2e6"/><stop offset="1" stop-color="#7d67c2"/>
+      </linearGradient>
+      <linearGradient id="sh-lilac-fin" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f6c9e0"/><stop offset="1" stop-color="#c7a6ea"/></linearGradient>
+      <linearGradient id="sh-coral" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#fde6c4"/><stop offset=".5" stop-color="#f0b489"/><stop offset="1" stop-color="#d97f6c"/>
+      </linearGradient>
+      <linearGradient id="sh-coral-fin" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff0d6"/><stop offset="1" stop-color="#f3b8a0"/></linearGradient>
+      <linearGradient id="sh-teal" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#d9f5ef"/><stop offset=".5" stop-color="#8fcfc4"/><stop offset="1" stop-color="#4a9994"/>
+      </linearGradient>
+      <!-- Watercolour: wobbly edges + pigment mottling -->
+      <filter id="wc" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="3" seed="4" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G" result="d"/>
+        <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="2" seed="9" result="g"/>
+        <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -0.55 0 0 0 1.12" result="ga"/>
+        <feComposite in="d" in2="ga" operator="in"/>
+      </filter>
     </defs>
     <symbol id="jellyfish" viewBox="0 0 120 220">
       <g class="jelly__tentacles" fill="none" stroke="#f0b5c8" stroke-width="2.4" stroke-linecap="round" opacity=".85">
@@ -404,6 +434,28 @@
     <symbol id="i-turtle" viewBox="0 0 48 48"><ellipse cx="22" cy="24" rx="13" ry="10" fill="currentColor" opacity=".25"/><ellipse cx="22" cy="24" rx="13" ry="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 17l6 7 6-7M16 31l6-7 6 7M9 24h26" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="40" cy="22" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 15l-4-5M12 33l-4 5M32 15l3-4M32 33l3 4" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
     <symbol id="i-shell" viewBox="0 0 48 48"><path d="M24 40L8 20a16 16 0 0 1 32 0z" fill="currentColor" opacity=".2"/><path d="M24 40L8 20a16 16 0 0 1 32 0z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M24 40L15 10M24 40V6M24 40l9-30M24 40L10 14M24 40l14-26" fill="none" stroke="currentColor" stroke-width="1.3"/></symbol>
   </svg>
+
+  <template id="art-seahorse">
+<svg viewBox="0 0 120 260" class="sh__svg" aria-hidden="true">
+  <g filter="url(#wc)">
+    <path class="sh__fin" d="M40 106 C 12 106, 6 146, 37 158 Z" style="fill:var(--fin)" opacity=".75"/>
+    <g class="sh__fin" stroke="#fff" stroke-width="1" opacity=".55" fill="none"><path d="M40 112 L18 114 M39 122 L12 126 M38 132 L11 138 M38 142 L15 149 M37 152 L24 157"/></g>
+    <path d="M56 194 C 47 218, 55 240, 74 242" style="stroke:var(--tail)" stroke-width="12" fill="none" stroke-linecap="round"/>
+    <path d="M74 242 C 90 243, 93 223, 80 219 C 70 216, 66 229, 75 232" style="stroke:var(--tail)" stroke-width="6.5" fill="none" stroke-linecap="round"/>
+    <path d="M52 14 C58 8 66 12 64 20 C70 24 74 30 76 36 L104 44 C110 45 110 54 104 54 L78 52 C76 60 72 66 70 72 C84 86 92 110 88 138 C85 160 74 176 64 190 C60 196 56 200 52 204 C46 200 40 190 38 176 C34 156 34 132 38 116 C41 96 46 80 46 66 C44 50 44 34 52 14 Z" style="fill:var(--body)"/>
+    <path d="M74 80 C 86 96, 88 124, 84 146 C 81 162, 74 174, 66 184" fill="none" stroke="#fff" stroke-width="4" opacity=".35" stroke-linecap="round"/>
+    <g fill="none" stroke="#fff" stroke-width="1.3" opacity=".45"><path d="M42 90 Q 61.5 96 81 89"/><path d="M41 100 Q 63.5 106 86 99"/><path d="M39.5 110 Q 63.75 116 88 109"/><path d="M38.5 120 Q 63.75 126 89 119"/><path d="M38 130 Q 63.0 136 88 129"/><path d="M37.5 140 Q 62.25 146 87 139"/><path d="M37 150 Q 60.5 156 84 149"/><path d="M37 160 Q 58.0 166 79 159"/><path d="M38 170 Q 55.5 176 73 169"/><path d="M41 180 Q 54.0 186 67 179"/></g>
+    <g style="fill:var(--shade)" opacity=".55"><circle cx="40" cy="95" r="2.2"/><circle cx="39" cy="105" r="2.2"/><circle cx="37.5" cy="115" r="2.2"/><circle cx="36.5" cy="125" r="2.2"/><circle cx="36" cy="135" r="2.2"/><circle cx="35.5" cy="145" r="2.2"/><circle cx="35" cy="155" r="2.2"/><circle cx="35" cy="165" r="2.2"/><circle cx="36" cy="175" r="2.2"/><circle cx="47" cy="60" r="2.2"/><circle cx="46" cy="72" r="2.2"/><circle cx="44" cy="82" r="2.2"/></g>
+    <path d="M52 14 L50 5 L56 11 L60 3 L62 13" style="fill:var(--shade)" opacity=".7"/>
+    <path class="sh__fin" d="M66 62 C 58 54, 52 64, 60 72 Z" style="fill:var(--fin)" opacity=".8"/>
+    <path d="M78 45 L102 48" stroke="#fff" stroke-width="1.5" opacity=".4" stroke-linecap="round"/>
+    <circle cx="62" cy="40" r="5.2" fill="#fff" opacity=".7"/>
+    <circle cx="62" cy="40" r="3.8" fill="#2b2340"/>
+    <circle cx="60.8" cy="38.6" r="1.3" fill="#fff"/>
+    <g style="fill:var(--shade)" opacity=".35"><circle cx="54" cy="30" r="1.4"/><circle cx="68" cy="30" r="1.2"/><circle cx="52" cy="50" r="1.3"/><circle cx="58" cy="98" r="1.5"/><circle cx="64" cy="122" r="1.3"/><circle cx="52" cy="140" r="1.5"/><circle cx="60" cy="160" r="1.2"/></g>
+  </g>
+</svg>
+  </template>
 
   <script src="config.js"></script>
   <script src="i18n.js"></script>

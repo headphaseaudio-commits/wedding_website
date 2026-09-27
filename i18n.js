@@ -7,7 +7,7 @@ window.I18N = {
     'nav.travel': 'Travel',
     'nav.rsvp': 'RSVP',
 
-    'hero.invite': 'We would love to invite you…',
+    'hero.invite': 'You are invited…',
     'hero.to': 'To the wedding celebration of',
     'hero.bride': 'Stephanie Parker',
     'hero.groom': 'Jakub Kościański',
@@ -88,7 +88,7 @@ window.I18N = {
     'nav.travel': 'Dojazd',
     'nav.rsvp': 'Potwierdź',
 
-    'hero.invite': 'Chcielibyśmy serdecznie zaprosić…',
+    'hero.invite': 'Serdecznie zapraszamy…',
     'hero.to': 'Na uroczystość zaślubin',
     'hero.bride': 'Stephanie Parker',
     'hero.groom': 'Jakuba Kościańskiego',

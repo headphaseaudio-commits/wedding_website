@@ -7,6 +7,13 @@
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ───────────── Sea-life art ───────────── */
+
+  $$('[data-art]').forEach(el => {
+    const tpl = document.getElementById('art-' + el.dataset.art);
+    if (tpl) el.append(tpl.content.cloneNode(true));
+  });
+
   /* ───────────── Language ───────────── */
 
   const store = {
@@ -371,12 +378,107 @@
     }
   }
 
+  /* Fish schools: simple boids that cruise across the screen and scatter from the pointer. */
+
+  const pointer = { x: -9999, y: -9999 };
+  const schools = [];
+  const rnd = Math.random;
+
+  function makeSchool(far, onScreen) {
+    const dir = rnd() < 0.5 ? 1 : -1;
+    const n = Math.round((far ? 14 : 9) * (W < 700 ? 0.6 : 1));
+    const y = H * (0.15 + rnd() * 0.7);
+    const x0 = onScreen ? W * (0.2 + rnd() * 0.6) : dir > 0 ? -60 : W + 60;
+    const s = {
+      dir, far, y,
+      size: far ? 13 + rnd() * 3 : 22 + rnd() * 6,
+      speed: far ? 0.5 + rnd() * 0.2 : 0.85 + rnd() * 0.3,
+      color: far ? 'rgba(38,82,96,0.17)' : 'rgba(30,70,84,0.3)',
+      tx: x0, drift: rnd() * 100, fish: []
+    };
+    for (let i = 0; i < n; i++) {
+      s.fish.push({
+        x: x0 - dir * rnd() * 110, y: y + (rnd() - 0.5) * 60,
+        vx: dir * s.speed, vy: 0, phase: rnd() * 6.3, scale: 0.8 + rnd() * 0.4
+      });
+    }
+    return s;
+  }
+
+  function updateSchool(s, dt) {
+    s.tx += s.dir * s.speed * dt;
+    s.drift += 0.005 * dt;
+    const ty = s.y + Math.sin(s.drift) * 50;
+    const n = s.fish.length;
+    let cx = 0, cy = 0, avx = 0, avy = 0;
+    for (const f of s.fish) { cx += f.x; cy += f.y; avx += f.vx; avy += f.vy; }
+    cx /= n; cy /= n; avx /= n; avy /= n;
+    const sep = s.size * 2.2;
+    const maxV = s.speed * 3, minV = s.speed * 0.6;
+
+    for (const f of s.fish) {
+      let ax = (s.tx - f.x) * 0.0005 + (cx - f.x) * 0.0015 + (avx - f.vx) * 0.04;
+      let ay = (ty - f.y) * 0.0008 + (cy - f.y) * 0.0015 + (avy - f.vy) * 0.04;
+      for (const g of s.fish) {
+        if (g === f) continue;
+        const dx = f.x - g.x, dy = f.y - g.y, d = Math.hypot(dx, dy);
+        if (d > 0 && d < sep) { ax += dx / d * (1 - d / sep) * 0.12; ay += dy / d * (1 - d / sep) * 0.12; }
+      }
+      const px = f.x - pointer.x, py = f.y - pointer.y, pd = Math.hypot(px, py);
+      if (pd < 140 && pd > 0) { const k = (1 - pd / 140) * 0.7; ax += px / pd * k; ay += py / pd * k; }
+
+      f.vx += ax * dt; f.vy += ay * dt;
+      const v = Math.hypot(f.vx, f.vy) || 1;
+      if (v > maxV) { f.vx *= maxV / v; f.vy *= maxV / v; }
+      else if (v < minV) { f.vx *= minV / v; f.vy *= minV / v; }
+      f.x += f.vx * dt; f.y += f.vy * dt;
+      f.phase += (0.12 + v * 0.1) * dt;
+    }
+  }
+
+  const schoolGone = s => s.fish.every(f => s.dir > 0 ? f.x > W + 60 : f.x < -60);
+
+  function drawFish(f, s) {
+    const L = s.size * f.scale;
+    const a = Math.atan2(f.vy, f.vx);
+    const w = Math.sin(f.phase) * L * 0.09;
+    ctx.save();
+    ctx.translate(f.x, f.y);
+    ctx.rotate(a);
+    if (Math.cos(a) < 0) ctx.scale(1, -1); // keep the dorsal fin on top
+    ctx.beginPath();
+    ctx.moveTo(L * 0.5, 0);
+    ctx.bezierCurveTo(L * 0.35, -L * 0.21, -L * 0.1, -L * 0.2, -L * 0.3, -L * 0.04 + w * 0.4);
+    ctx.lineTo(-L * 0.52, -L * 0.19 + w);
+    ctx.quadraticCurveTo(-L * 0.43, w * 0.8, -L * 0.52, L * 0.19 + w);
+    ctx.lineTo(-L * 0.3, L * 0.04 + w * 0.4);
+    ctx.bezierCurveTo(-L * 0.1, L * 0.2, L * 0.35, L * 0.21, L * 0.5, 0);
+    if (!s.far) { // dorsal and pelvic fins
+      ctx.moveTo(L * 0.08, -L * 0.17); ctx.lineTo(-L * 0.12, -L * 0.3); ctx.lineTo(-L * 0.16, -L * 0.14);
+      ctx.moveTo(L * 0.02, L * 0.16); ctx.lineTo(-L * 0.08, L * 0.25); ctx.lineTo(-L * 0.1, L * 0.14);
+    }
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawSchools(dt) {
+    ctx.globalAlpha = 1;
+    for (let i = 0; i < schools.length; i++) {
+      const s = schools[i];
+      updateSchool(s, dt);
+      ctx.fillStyle = s.color;
+      for (const f of s.fish) drawFish(f, s);
+      if (schoolGone(s)) schools[i] = makeSchool(s.far, false);
+    }
+  }
+
   let last = performance.now();
   let running = true;
   function frame(now) {
     const dt = Math.min(3, (now - last) / 16.67);
     last = now;
     ctx.clearRect(0, 0, W, H);
+    drawSchools(dt);
 
     for (let i = bubbles.length - 1; i >= 0; i--) {
       const b = bubbles[i];
@@ -434,6 +536,12 @@
   if (!reduceMotion) {
     resize();
     for (let i = 0; i < ambientCount(); i++) spawnAmbient(true);
+    schools.push(makeSchool(true, true), makeSchool(false, true));
+    if (W > 900) schools.push(makeSchool(true, false), makeSchool(false, false));
+    schools.sort((a, b) => b.far - a.far); // far schools drawn first
+
+    addEventListener('pointermove', e => { pointer.x = e.clientX; pointer.y = e.clientY; }, { passive: true });
+    document.documentElement.addEventListener('pointerleave', () => { pointer.x = pointer.y = -9999; });
     addEventListener('resize', resize);
     requestAnimationFrame(frame);
 
@@ -444,6 +552,8 @@
 
     // Tap anywhere that isn't a control: pop the bubble under your finger, or blow new ones.
     document.addEventListener('pointerdown', e => {
+      pointer.x = e.clientX; pointer.y = e.clientY;
+      if (e.pointerType !== 'mouse') setTimeout(() => { pointer.x = pointer.y = -9999; }, 700);
       if (e.target.closest('input, textarea, select, button, a, label, .card--form')) return;
       const hit = bubbles.findIndex(b => Math.hypot(b.x - e.clientX, b.y - e.clientY) < b.r + 8);
       if (hit > -1) {

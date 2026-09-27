@@ -177,7 +177,7 @@ h1, h2, h3 { margin: 0; font-weight: 500; }
 }
 @keyframes float { 50% { transform: translateY(-8px) rotate(-1deg); } }
 
-.dots { border: 0; border-top: 2px dotted rgba(31,59,61,.35); width: 80%; margin: 18px auto 14px; }
+.arch__orn { margin: 14px auto 12px; }
 .arch__to { margin: 0; font-size: 1.2rem; }
 .arch__names {
   font-family: var(--f-script); font-weight: 400;
@@ -227,12 +227,53 @@ h1, h2, h3 { margin: 0; font-weight: 500; }
 /* Jellyfish */
 .jelly { position: absolute; width: clamp(60px, 9vw, 110px); opacity: .9; pointer-events: none; }
 .jelly--l { left: 4%; top: 16%; animation: drift 11s ease-in-out infinite; }
-.jelly--r { right: 5%; top: 42%; width: clamp(48px, 7vw, 86px); animation: drift 13s ease-in-out -4s infinite; }
+.jelly--r { right: 5%; top: 62%; width: clamp(48px, 7vw, 86px); animation: drift 13s ease-in-out -4s infinite; }
 @keyframes drift {
   0%, 100% { transform: translate(0, 0) rotate(-4deg); }
   50% { transform: translate(10px, -34px) rotate(4deg); }
 }
 @media (max-width: 720px) { .jelly--l { top: 9%; left: -10px; } .jelly--r { top: 62%; right: -8px; } }
+.arch { z-index: 1; }
+
+/* Seahorses (art cloned from <template id="art-seahorse">) */
+.sh { position: absolute; width: clamp(54px, 7vw, 100px); pointer-events: none; animation: bob 6.5s ease-in-out infinite; }
+.sh__svg { display: block; width: 100%; height: auto; overflow: visible; filter: drop-shadow(0 6px 10px rgba(23,60,74,.18)); }
+.sh--flip .sh__svg { transform: scaleX(-1); }
+.sh__fin { transform-box: fill-box; transform-origin: 100% 50%; animation: flutter .32s ease-in-out infinite alternate; }
+.sh--lilac { --body: url(#sh-lilac); --fin: url(#sh-lilac-fin); --tail: #9a82d4; --shade: #5e4a9e; }
+.sh--coral { --body: url(#sh-coral); --fin: url(#sh-coral-fin); --tail: #e39f7e; --shade: #b0604f; }
+.sh--teal  { --body: url(#sh-teal);  --fin: url(#sh-lilac-fin); --tail: #6fb5ad; --shade: #2e6b70; }
+.sh--hero-r { right: 9%; top: 20%; animation-delay: -2s; }
+.sh--hero-l { left: 8%; bottom: 12%; width: clamp(46px, 5.5vw, 80px); animation-duration: 7.5s; }
+.sh--rsvp { left: calc(50% - 470px); top: 34%; animation-delay: -3s; }
+.jelly--rsvp { right: calc(50% - 460px); top: 58%; width: 70px; animation: drift 12s ease-in-out -6s infinite; }
+@media (max-width: 1040px) { .sh--rsvp, .jelly--rsvp { display: none; } }
+@media (max-width: 720px) {
+  .sh--hero-r { right: -14px; top: 34%; width: 50px; }
+  .sh--hero-l { left: -10px; bottom: 5%; width: 44px; }
+}
+@keyframes bob {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-16px) rotate(3deg); }
+}
+@keyframes flutter { from { transform: scaleX(1); } to { transform: scaleX(.78); } }
+
+/* Distant turtle gliding through the deep background */
+.glider {
+  position: absolute; top: 38%; left: 0; width: clamp(110px, 14vw, 190px);
+  fill: #17404c; opacity: .13; filter: blur(1.2px);
+  animation: glide 75s linear -20s infinite;
+}
+.glider__fl { transform-box: fill-box; animation: paddle 3.2s ease-in-out infinite; }
+.glider__fl--top { transform-origin: 100% 100%; }
+.glider__fl--bot { transform-origin: 100% 0%; animation-name: paddle-b; }
+@keyframes glide {
+  0%   { transform: translate(-25vw, 0) rotate(-3deg); }
+  50%  { transform: translate(50vw, 12vh) rotate(3deg); }
+  100% { transform: translate(115vw, -4vh) rotate(-2deg); }
+}
+@keyframes paddle { 50% { transform: rotate(-16deg) scaleY(.85); } }
+@keyframes paddle-b { 50% { transform: rotate(16deg) scaleY(.85); } }
 
 /* ───────────── Buttons & chips ───────────── */
 .btn {
