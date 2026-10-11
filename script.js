@@ -7,13 +7,6 @@
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ───────────── Sea-life art ───────────── */
-
-  $$('[data-art]').forEach(el => {
-    const tpl = document.getElementById('art-' + el.dataset.art);
-    if (tpl) el.append(tpl.content.cloneNode(true));
-  });
-
   /* ───────────── Language ───────────── */
 
   const store = {
@@ -472,12 +465,97 @@
     }
   }
 
+  /* Jellyfish: pulse to swim upward, drift with a slow tilt, nudged away by the pointer. */
+
+  const jellies = [];
+
+  function makeJelly(far, onScreen) {
+    const size = far ? 22 + rnd() * 10 : 36 + rnd() * 18;
+    return {
+      far, size,
+      x: W * (0.05 + rnd() * 0.9),
+      y: onScreen ? H * (0.2 + rnd() * 0.8) : H + size * 3,
+      vx: 0, vy: 0,
+      tilt: (rnd() - 0.5) * 0.5,
+      wander: rnd() * 100,
+      phase: rnd() * 6.3,
+      rate: 0.022 + rnd() * 0.012,
+      color: far ? 'rgba(38,82,96,0.14)' : 'rgba(30,70,84,0.24)'
+    };
+  }
+
+  function updateJelly(j, dt) {
+    j.phase += j.rate * dt;
+    j.wander += 0.003 * dt;
+    j.tilt += Math.sin(j.wander) * 0.002 * dt;
+    j.tilt = Math.max(-0.6, Math.min(0.6, j.tilt));
+    const thrust = Math.max(0, Math.cos(j.phase)) * (j.far ? 0.012 : 0.018); // push on each contraction
+    j.vx += Math.sin(j.tilt) * thrust * dt;
+    j.vy += (-Math.cos(j.tilt) * thrust + 0.002) * dt; // slight sink between pulses
+    const px = j.x - pointer.x, py = j.y - pointer.y, pd = Math.hypot(px, py);
+    if (pd < 160 && pd > 0) { const k = (1 - pd / 160) * 0.05; j.vx += px / pd * k * dt; j.vy += py / pd * k * dt; }
+    const drag = Math.pow(0.97, dt);
+    j.vx *= drag; j.vy *= drag;
+    j.x += j.vx * dt; j.y += j.vy * dt;
+  }
+
+  function drawJelly(j) {
+    const c = (1 + Math.sin(j.phase)) / 2; // 0 relaxed … 1 contracted
+    const rx = j.size * 0.5 * (1 - 0.16 * c);
+    const ry = j.size * 0.42 * (1 + 0.14 * c);
+    ctx.save();
+    ctx.translate(j.x, j.y);
+    ctx.rotate(j.tilt);
+    ctx.fillStyle = ctx.strokeStyle = j.color;
+
+    // Bell with a scalloped rim
+    ctx.beginPath();
+    ctx.moveTo(-rx, 0);
+    ctx.bezierCurveTo(-rx, -ry * 1.35, rx, -ry * 1.35, rx, 0);
+    const lobes = 6;
+    for (let k = lobes; k > 0; k--) {
+      const x1 = -rx + (2 * rx * k) / lobes, x0 = -rx + (2 * rx * (k - 1)) / lobes;
+      ctx.quadraticCurveTo((x0 + x1) / 2, ry * 0.18, x0, 0);
+    }
+    ctx.fill();
+
+    // Trailing tentacles and frilly oral arms
+    ctx.lineCap = 'round';
+    const t = j.phase;
+    const strand = (x0, len, width, amp, seed) => {
+      ctx.lineWidth = width;
+      ctx.beginPath();
+      ctx.moveTo(x0, ry * 0.05);
+      for (let y = 0; y <= len; y += 4) {
+        ctx.lineTo(x0 * (1 - 0.15 * y / len) + Math.sin(t * 1.3 - y * 0.06 + seed) * amp * (y / len), y);
+      }
+      ctx.stroke();
+    };
+    for (let i = 0; i < 5; i++) {
+      strand(-rx * 0.8 + (1.6 * rx * i) / 4, j.size * (1.4 + 0.25 * Math.sin(i * 2.1)), Math.max(0.8, j.size * 0.03), j.size * 0.14, i);
+    }
+    strand(-rx * 0.15, j.size * 0.9, j.size * 0.08, j.size * 0.08, 7);
+    strand(rx * 0.15, j.size * 0.8, j.size * 0.08, j.size * 0.08, 9);
+    ctx.restore();
+  }
+
+  function drawJellies(dt) {
+    for (let i = 0; i < jellies.length; i++) {
+      const j = jellies[i];
+      updateJelly(j, dt);
+      drawJelly(j);
+      const out = j.y < -j.size * 3 || j.x < -j.size * 2 || j.x > W + j.size * 2;
+      if (out) jellies[i] = makeJelly(j.far, false);
+    }
+  }
+
   let last = performance.now();
   let running = true;
   function frame(now) {
     const dt = Math.min(3, (now - last) / 16.67);
     last = now;
     ctx.clearRect(0, 0, W, H);
+    drawJellies(dt);
     drawSchools(dt);
 
     for (let i = bubbles.length - 1; i >= 0; i--) {
@@ -539,6 +617,9 @@
     schools.push(makeSchool(true, true), makeSchool(false, true));
     if (W > 900) schools.push(makeSchool(true, false), makeSchool(false, false));
     schools.sort((a, b) => b.far - a.far); // far schools drawn first
+    jellies.push(makeJelly(true, true), makeJelly(false, true));
+    if (W > 900) jellies.push(makeJelly(true, true), makeJelly(false, false));
+    jellies.sort((a, b) => b.far - a.far);
 
     addEventListener('pointermove', e => { pointer.x = e.clientX; pointer.y = e.clientY; }, { passive: true });
     document.documentElement.addEventListener('pointerleave', () => { pointer.x = pointer.y = -9999; });

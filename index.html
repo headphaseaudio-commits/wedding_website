@@ -54,10 +54,6 @@
   <main id="top">
     <!-- ───────────── HERO ───────────── -->
     <section class="hero">
-      <svg class="jelly jelly--l" viewBox="0 0 120 220" aria-hidden="true"><use href="#jellyfish"/></svg>
-      <svg class="jelly jelly--r" viewBox="0 0 120 220" aria-hidden="true"><use href="#jellyfish"/></svg>
-      <div class="sh sh--lilac sh--hero-r sh--flip" data-art="seahorse"></div>
-      <div class="sh sh--coral sh--hero-l" data-art="seahorse"></div>
 
       <div class="arch reveal">
         <svg class="arch__curve" viewBox="0 0 400 110" aria-hidden="true">
@@ -139,8 +135,6 @@
 
     <!-- ───────────── RSVP ───────────── -->
     <section class="section section--rsvp" id="rsvp">
-      <div class="sh sh--teal sh--rsvp" data-art="seahorse"></div>
-      <svg class="jelly jelly--rsvp" viewBox="0 0 120 220" aria-hidden="true"><use href="#jellyfish"/></svg>
       <div class="container container--narrow">
         <header class="section__head reveal">
           <h2 data-i18n="rsvp.title">Will you join us?</h2>
@@ -343,44 +337,23 @@
           </a>
         </div>
 
-        <h3 class="subhead reveal">Polish wedding 101</h3>
-        <div class="grid grid--2">
-          <div class="card reveal">
-            <dl class="guide">
-              <dt>“Gorzko! Gorzko!”</dt>
-              <dd>“Bitter!” When guests chant this, the couple must kiss to sweeten the vodka. Join in — loudly.</dd>
-              <dt>“Sto lat”</dt>
-              <dd>“A hundred years” — the song for every toast and happy moment. You'll know it by the second round.</dd>
-              <dt>Pace yourself</dt>
-              <dd>Polish receptions are marathons: several hot courses, cake, and dancing well past midnight.</dd>
-              <dt>Oczepiny</dt>
-              <dd>Games after midnight, often with a veil and bouquet toss. Expect to be pulled onto the dance floor.</dd>
-            </dl>
-          </div>
-          <div class="card reveal">
-            <p class="eyebrow">Tap to hear it</p>
-            <ul class="phrases">
-              <li><button type="button" class="say" data-say="Dzień dobry"><b>Dzień dobry</b><small>jen DOB-ri · Hello</small></button></li>
-              <li><button type="button" class="say" data-say="Dziękuję"><b>Dziękuję</b><small>jen-KOO-yeh · Thank you</small></button></li>
-              <li><button type="button" class="say" data-say="Na zdrowie!"><b>Na zdrowie!</b><small>nah ZDROH-vyeh · Cheers!</small></button></li>
-              <li><button type="button" class="say" data-say="Smacznego"><b>Smacznego</b><small>smach-NEH-go · Enjoy your meal</small></button></li>
-              <li><button type="button" class="say" data-say="Gorzko!"><b>Gorzko!</b><small>GOZH-ko · Kiss!</small></button></li>
-              <li><button type="button" class="say" data-say="Sto lat!"><b>Sto lat!</b><small>stoh laht · Long life!</small></button></li>
-            </ul>
-          </div>
+        <h3 class="subhead reveal">Say it like a local</h3>
+        <p class="lede lede--sub reveal">A few Polish words go a long way. Tap a phrase to hear it.</p>
+        <div class="card card--phrases reveal">
+          <ul class="phrases">
+            <li><button type="button" class="say" data-say="Dzień dobry"><b>Dzień dobry</b><small>jen DOB-ri · Hello</small></button></li>
+            <li><button type="button" class="say" data-say="Dziękuję"><b>Dziękuję</b><small>jen-KOO-yeh · Thank you</small></button></li>
+            <li><button type="button" class="say" data-say="Na zdrowie!"><b>Na zdrowie!</b><small>nah ZDROH-vyeh · Cheers!</small></button></li>
+            <li><button type="button" class="say" data-say="Smacznego"><b>Smacznego</b><small>smach-NEH-go · Enjoy your meal</small></button></li>
+            <li><button type="button" class="say" data-say="Gorzko!"><b>Gorzko!</b><small>GOZH-ko · Chant it and the couple must kiss!</small></button></li>
+            <li><button type="button" class="say" data-say="Sto lat!"><b>Sto lat!</b><small>stoh laht · “A hundred years!” — the toast song</small></button></li>
+          </ul>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <svg class="seaweed" viewBox="0 0 1200 160" preserveAspectRatio="none" aria-hidden="true">
-      <g class="sway sway--1"><path d="M80 160 C 60 120, 110 100, 85 60 S 100 10, 90 0" /></g>
-      <g class="sway sway--2"><path d="M140 160 C 160 120, 120 90, 150 50 S 130 20, 145 10" /></g>
-      <g class="sway sway--3"><path d="M1040 160 C 1020 110, 1070 90, 1045 50 S 1060 15, 1050 5" /></g>
-      <g class="sway sway--1"><path d="M1110 160 C 1130 120, 1090 90, 1120 60 S 1105 30, 1115 20" /></g>
-      <g class="sway sway--2"><path d="M600 160 C 590 130, 620 115, 605 90" /></g>
-    </svg>
     <img src="assets/turtles.webp" alt="" width="72" height="72" class="footer__logo" loading="lazy">
     <p class="footer__names">Stephanie &amp; Jakub</p>
     <p class="footer__date">05 · 06 · 2027 · Głogów</p>
@@ -389,41 +362,6 @@
 
   <!-- Symbol library -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <defs>
-      <radialGradient id="jg" cx="50%" cy="35%" r="65%">
-        <stop offset="0%" stop-color="#fde4ec"/>
-        <stop offset="70%" stop-color="#f3b9cc"/>
-        <stop offset="100%" stop-color="#e79bb5" stop-opacity=".85"/>
-      </radialGradient>
-      <linearGradient id="sh-lilac" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stop-color="#eadcfb"/><stop offset=".45" stop-color="#b9a2e6"/><stop offset="1" stop-color="#7d67c2"/>
-      </linearGradient>
-      <linearGradient id="sh-lilac-fin" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f6c9e0"/><stop offset="1" stop-color="#c7a6ea"/></linearGradient>
-      <linearGradient id="sh-coral" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stop-color="#fde6c4"/><stop offset=".5" stop-color="#f0b489"/><stop offset="1" stop-color="#d97f6c"/>
-      </linearGradient>
-      <linearGradient id="sh-coral-fin" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff0d6"/><stop offset="1" stop-color="#f3b8a0"/></linearGradient>
-      <linearGradient id="sh-teal" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stop-color="#d9f5ef"/><stop offset=".5" stop-color="#8fcfc4"/><stop offset="1" stop-color="#4a9994"/>
-      </linearGradient>
-      <!-- Watercolour: wobbly edges + pigment mottling -->
-      <filter id="wc" x="-10%" y="-10%" width="120%" height="120%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="3" seed="4" result="n"/>
-        <feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G" result="d"/>
-        <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="2" seed="9" result="g"/>
-        <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -0.55 0 0 0 1.12" result="ga"/>
-        <feComposite in="d" in2="ga" operator="in"/>
-      </filter>
-    </defs>
-    <symbol id="jellyfish" viewBox="0 0 120 220">
-      <g class="jelly__tentacles" fill="none" stroke="#f0b5c8" stroke-width="2.4" stroke-linecap="round" opacity=".85">
-        <path d="M30 70 q -8 25 4 50 t -2 55"/><path d="M48 74 q 8 30 -4 60 t 6 70"/>
-        <path d="M62 75 q -6 28 6 55 t -4 65"/><path d="M76 74 q 10 26 -2 55 t 4 60"/>
-        <path d="M92 70 q -6 22 6 45 t -4 50"/>
-      </g>
-      <path d="M12 72 C 12 25, 108 25, 108 72 C 98 66, 90 78, 80 72 C 70 80, 60 70, 50 78 C 40 70, 30 80, 22 72 C 18 76, 14 74, 12 72 Z" fill="url(#jg)"/>
-      <path d="M30 45 C 40 30, 70 28, 86 40" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".6"/>
-    </symbol>
     <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
     <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="9.5" r="2.5" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
     <symbol id="i-shirt" viewBox="0 0 24 24"><path d="M8 3l4 2 4-2 5 4-3 3-2-1v12H8V9L6 10 3 7z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></symbol>
@@ -434,28 +372,6 @@
     <symbol id="i-turtle" viewBox="0 0 48 48"><ellipse cx="22" cy="24" rx="13" ry="10" fill="currentColor" opacity=".25"/><ellipse cx="22" cy="24" rx="13" ry="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 17l6 7 6-7M16 31l6-7 6 7M9 24h26" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="40" cy="22" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 15l-4-5M12 33l-4 5M32 15l3-4M32 33l3 4" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
     <symbol id="i-shell" viewBox="0 0 48 48"><path d="M24 40L8 20a16 16 0 0 1 32 0z" fill="currentColor" opacity=".2"/><path d="M24 40L8 20a16 16 0 0 1 32 0z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M24 40L15 10M24 40V6M24 40l9-30M24 40L10 14M24 40l14-26" fill="none" stroke="currentColor" stroke-width="1.3"/></symbol>
   </svg>
-
-  <template id="art-seahorse">
-<svg viewBox="0 0 120 260" class="sh__svg" aria-hidden="true">
-  <g filter="url(#wc)">
-    <path class="sh__fin" d="M40 106 C 12 106, 6 146, 37 158 Z" style="fill:var(--fin)" opacity=".75"/>
-    <g class="sh__fin" stroke="#fff" stroke-width="1" opacity=".55" fill="none"><path d="M40 112 L18 114 M39 122 L12 126 M38 132 L11 138 M38 142 L15 149 M37 152 L24 157"/></g>
-    <path d="M56 194 C 47 218, 55 240, 74 242" style="stroke:var(--tail)" stroke-width="12" fill="none" stroke-linecap="round"/>
-    <path d="M74 242 C 90 243, 93 223, 80 219 C 70 216, 66 229, 75 232" style="stroke:var(--tail)" stroke-width="6.5" fill="none" stroke-linecap="round"/>
-    <path d="M52 14 C58 8 66 12 64 20 C70 24 74 30 76 36 L104 44 C110 45 110 54 104 54 L78 52 C76 60 72 66 70 72 C84 86 92 110 88 138 C85 160 74 176 64 190 C60 196 56 200 52 204 C46 200 40 190 38 176 C34 156 34 132 38 116 C41 96 46 80 46 66 C44 50 44 34 52 14 Z" style="fill:var(--body)"/>
-    <path d="M74 80 C 86 96, 88 124, 84 146 C 81 162, 74 174, 66 184" fill="none" stroke="#fff" stroke-width="4" opacity=".35" stroke-linecap="round"/>
-    <g fill="none" stroke="#fff" stroke-width="1.3" opacity=".45"><path d="M42 90 Q 61.5 96 81 89"/><path d="M41 100 Q 63.5 106 86 99"/><path d="M39.5 110 Q 63.75 116 88 109"/><path d="M38.5 120 Q 63.75 126 89 119"/><path d="M38 130 Q 63.0 136 88 129"/><path d="M37.5 140 Q 62.25 146 87 139"/><path d="M37 150 Q 60.5 156 84 149"/><path d="M37 160 Q 58.0 166 79 159"/><path d="M38 170 Q 55.5 176 73 169"/><path d="M41 180 Q 54.0 186 67 179"/></g>
-    <g style="fill:var(--shade)" opacity=".55"><circle cx="40" cy="95" r="2.2"/><circle cx="39" cy="105" r="2.2"/><circle cx="37.5" cy="115" r="2.2"/><circle cx="36.5" cy="125" r="2.2"/><circle cx="36" cy="135" r="2.2"/><circle cx="35.5" cy="145" r="2.2"/><circle cx="35" cy="155" r="2.2"/><circle cx="35" cy="165" r="2.2"/><circle cx="36" cy="175" r="2.2"/><circle cx="47" cy="60" r="2.2"/><circle cx="46" cy="72" r="2.2"/><circle cx="44" cy="82" r="2.2"/></g>
-    <path d="M52 14 L50 5 L56 11 L60 3 L62 13" style="fill:var(--shade)" opacity=".7"/>
-    <path class="sh__fin" d="M66 62 C 58 54, 52 64, 60 72 Z" style="fill:var(--fin)" opacity=".8"/>
-    <path d="M78 45 L102 48" stroke="#fff" stroke-width="1.5" opacity=".4" stroke-linecap="round"/>
-    <circle cx="62" cy="40" r="5.2" fill="#fff" opacity=".7"/>
-    <circle cx="62" cy="40" r="3.8" fill="#2b2340"/>
-    <circle cx="60.8" cy="38.6" r="1.3" fill="#fff"/>
-    <g style="fill:var(--shade)" opacity=".35"><circle cx="54" cy="30" r="1.4"/><circle cx="68" cy="30" r="1.2"/><circle cx="52" cy="50" r="1.3"/><circle cx="58" cy="98" r="1.5"/><circle cx="64" cy="122" r="1.3"/><circle cx="52" cy="140" r="1.5"/><circle cx="60" cy="160" r="1.2"/></g>
-  </g>
-</svg>
-  </template>
 
   <script src="config.js"></script>
   <script src="i18n.js"></script>
