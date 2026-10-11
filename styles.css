@@ -166,10 +166,11 @@ h1, h2, h3 { margin: 0; font-weight: 500; }
   border-radius: 238px 238px 16px 16px;
   pointer-events: none;
 }
-.arch__curve { width: 88%; margin: 6px auto -4px; overflow: visible; }
+.arch__curve { width: 88%; margin: 14px auto -2px; overflow: visible; }
 .arch__curve text {
-  font-family: var(--f-serif); font-size: 25px; letter-spacing: .04em; fill: var(--ink);
+  font-family: var(--f-serif); font-size: 36px; font-weight: 500; letter-spacing: .03em; fill: var(--ink);
 }
+html[lang="pl"] .arch__curve text { font-size: 31px; letter-spacing: .02em; }
 .arch__logo {
   width: min(300px, 78%); margin: 0 auto;
   filter: drop-shadow(0 8px 14px rgba(23,60,74,.15));
