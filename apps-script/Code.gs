@@ -4,7 +4,7 @@
  */
 
 const SHEET_NAME = 'RSVPs';
-const NOTIFY_EMAIL = '';              // your email: get a message for every reply ('' = off)
+const NOTIFY_EMAIL = 'ourweddingday.june27@gmail.com'; // gets a message for every reply ('' = off)
 const SEND_GUEST_CONFIRMATION = true; // email accepting guests a confirmation in their language
 
 const HEADERS = ['Received', 'Language', 'Name', 'Attending', 'Email', 'Diet', 'Allergies / dietary notes', 'Other notes', 'Message'];
@@ -36,8 +36,13 @@ function doPost(e) {
     sheet().appendRow(row);
 
     if (NOTIFY_EMAIL) {
-      MailApp.sendEmail(NOTIFY_EMAIL, `RSVP: ${name} — ${attending === 'yes' ? 'coming 🎉' : 'not coming'}`,
-        HEADERS.map((h, i) => `${h}: ${row[i]}`).join('\n'));
+      const note = {
+        to: NOTIFY_EMAIL,
+        subject: `RSVP: ${name} — ${attending === 'yes' ? 'coming 🎉' : 'not coming'}`,
+        body: HEADERS.map((h, i) => `${h}: ${row[i] || '—'}`).join('\n')
+      };
+      if (email) note.replyTo = email; // hitting Reply answers the guest directly
+      MailApp.sendEmail(note);
     }
     if (SEND_GUEST_CONFIRMATION && attending === 'yes') {
       const pl = row[1] === 'pl';

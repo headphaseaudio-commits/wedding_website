@@ -19,8 +19,8 @@ Language is picked from `?lang=pl|en`, then the visitor's last choice, then brow
 
 ## Collecting replies (Google Sheets, free)
 
-1. Create a Google Sheet → **Extensions → Apps Script**.
-2. Paste `apps-script/Code.gs`, set `NOTIFY_EMAIL` if you want an email per reply. Save.
+1. Signed in as **ourweddingday.june27@gmail.com**, create a Google Sheet → **Extensions → Apps Script**.
+2. Paste `apps-script/Code.gs` and save. Every reply is emailed to `NOTIFY_EMAIL` (already set to that address), and guest confirmations are sent from the account that deploys the script.
 3. **Deploy → New deployment → Web app**. Execute as: *Me*. Who has access: *Anyone*. Authorise.
 4. Copy the web-app URL (`https://script.google.com/macros/s/…/exec`) into `rsvpEndpoint` in `config.js`.
 
