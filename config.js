@@ -2,7 +2,7 @@
 window.WEDDING_CONFIG = {
   // Google Apps Script web-app URL (see README → "Collecting replies").
   // Leave empty to run in preview mode: the form works but nothing is saved.
-  rsvpEndpoint: '',
+  rsvpEndpoint: 'https://script.google.com/macros/s/AKfycbwng0s9q2b48dfyIDyw5YqVOwH7Y0bUfkJYC5Dxmd-EChnW9Kkc1t9y-vbPPy1mGJ9iFQ/exec',
 
   // RSVP deadline as YYYY-MM-DD, e.g. '2027-03-31'. Empty = "as soon as you can".
   rsvpDeadline: '',
