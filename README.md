@@ -13,7 +13,7 @@ python3 -m http.server 8000
 
 - **Settings** (RSVP endpoint, deadline, contact email): `config.js`
 - **All translatable copy**: `i18n.js` (keys match `data-i18n*` attributes in `index.html`)
-- **Explore Głogów** (including the "Say it like a local" phrases) is English-only and live directly in `index.html` (`data-lang-only="en"`).
+- **Explore Głogów** (including the "Say it like a local" phrases) is English-only and lives directly in `index.html` (`data-lang-only="en"`).
 
 Language is picked from `?lang=pl|en`, then the visitor's last choice, then browser language. Use `…/?lang=pl` in the QR code on the Polish invite and `…/?lang=en` on the English one.
 
