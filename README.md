@@ -28,6 +28,13 @@ Replies land in the `RSVPs` tab. Diet chips are stored as canonical English valu
 
 Until `rsvpEndpoint` is set the form runs in preview mode: it validates and shows the thank-you screen but saves nothing (a small note says so).
 
-## Deploy
+## Deploy (GitHub Pages + Squarespace domain)
 
-Any static host works. GitHub Pages: Settings → Pages → deploy from branch → `/ (root)`. Custom domain optional.
+Live address: **https://stephanieandjacob.co.uk** (`CNAME` file in the repo root).
+
+1. GitHub → Settings → Pages → Deploy from a branch → this branch, `/ (root)`. Once the domain check is green, tick **Enforce HTTPS**.
+2. Squarespace → Domains → stephanieandjacob.co.uk → DNS: delete the *Squarespace Defaults* records, then add
+   `A @ 185.199.108.153`, `A @ 185.199.109.153`, `A @ 185.199.110.153`, `A @ 185.199.111.153`,
+   `CNAME www headphaseaudio-commits.github.io`.
+
+QR codes for the printed invites are in `print/` (`qr-en` → `/?lang=en`, `qr-pl` → `/?lang=pl`). Use the SVGs for print.
