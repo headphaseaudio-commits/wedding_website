@@ -74,9 +74,12 @@ window.I18N = {
     'travel.train': 'By train',
     'travel.trainBody': 'Głogów has direct trains from Wrocław and Poznań. Check times and buy tickets on <a href="https://koleo.pl/en" target="_blank" rel="noopener">Koleo</a>.',
     'travel.car': 'By car',
-    'travel.carBody': 'Both venues are in Głogów, a short drive apart. Parking details coming soon.',
+    'travel.carBody': 'Both venues are in Głogów, a short drive apart.',
     'travel.stay': 'Where to stay',
-    'travel.stayBody': "We'll share a list of recommended hotels nearby soon.",
+    'travel.stayBody': 'Hotels close to both venues:',
+    'stay.qubus': 'Old Town centre · 3★',
+    'stay.interferie': 'Town centre',
+    'stay.serby': 'Just outside town, quiet',
 
     'footer.q': 'Questions?'
   },
@@ -157,9 +160,12 @@ window.I18N = {
     'travel.train': 'Pociągiem',
     'travel.trainBody': 'Do Głogowa kursują bezpośrednie pociągi z Wrocławia i Poznania. Rozkład jazdy i bilety znajdziesz w <a href="https://koleo.pl" target="_blank" rel="noopener">Koleo</a>.',
     'travel.car': 'Samochodem',
-    'travel.carBody': 'Oba miejsca znajdują się w Głogowie, niedaleko od siebie. Informacje o parkingu wkrótce.',
+    'travel.carBody': 'Oba miejsca znajdują się w Głogowie, niedaleko od siebie.',
     'travel.stay': 'Nocleg',
-    'travel.stayBody': 'Wkrótce udostępnimy listę polecanych hoteli w okolicy.',
+    'travel.stayBody': 'Hotele w pobliżu obu miejsc:',
+    'stay.qubus': 'Centrum, przy Starym Mieście · 3★',
+    'stay.interferie': 'Centrum miasta',
+    'stay.serby': 'Tuż za miastem, spokojnie',
 
     'footer.q': 'Pytania?'
   }

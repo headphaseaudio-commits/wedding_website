@@ -5,10 +5,10 @@ window.WEDDING_CONFIG = {
   rsvpEndpoint: 'https://script.google.com/macros/s/AKfycbwng0s9q2b48dfyIDyw5YqVOwH7Y0bUfkJYC5Dxmd-EChnW9Kkc1t9y-vbPPy1mGJ9iFQ/exec',
 
   // RSVP deadline as YYYY-MM-DD, e.g. '2027-03-31'. Empty = "as soon as you can".
-  rsvpDeadline: '',
+  rsvpDeadline: '2027-02-01',
 
   // Shown in the footer as "Questions? …". Empty = hidden.
-  contactEmail: '',
+  contactEmail: 'ourweddingday.june27@gmail.com',
 
   // Ceremony start, with the Polish summer offset (CEST, UTC+2).
   weddingStart: '2027-06-05T14:00:00+02:00',

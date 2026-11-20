@@ -360,6 +360,9 @@ h1, h2, h3 { margin: 0; font-weight: 500; }
 .cal { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-family: var(--f-sans); font-size: .85rem; color: var(--ink-soft); }
 
 .grid { display: grid; gap: 20px; }
+.stays { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 10px; }
+.stays a { font-weight: 600; color: var(--teal-deep); text-underline-offset: 3px; }
+.stays small { display: block; font-family: var(--f-sans); font-size: .76rem; color: var(--ink-soft); }
 .grid--2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
 .grid--3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
 .grid--4 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
