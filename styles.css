@@ -166,10 +166,29 @@ h1, h2, h3 { margin: 0; font-weight: 500; }
   border-radius: 238px 238px 16px 16px;
   pointer-events: none;
 }
+/* Script heading: writes itself in, then a slow shimmer and gentle float */
 .arch__invite {
-  margin: 44px 0 6px;
-  font-family: var(--f-serif); font-weight: 700; font-size: clamp(1.45rem, 5.6vw, 2.1rem);
-  line-height: 1.2; letter-spacing: .02em; color: var(--ink);
+  display: inline-block;
+  margin: 38px 0 2px;
+  padding: 0 .3em .1em; /* room for flourishes, so the gradient fill doesn't cut them off */
+  font-family: var(--f-script); font-weight: 400; font-size: clamp(2.1rem, 8.4vw, 3.1rem);
+  line-height: 1.25; color: var(--abyss);
+  background: linear-gradient(100deg, var(--abyss) 42%, #6fbcb4 50%, var(--abyss) 58%) 100% 0 / 250% 100%;
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation:
+    write-in 2.2s cubic-bezier(.45, .05, .35, 1) .3s both,
+    shimmer 7s ease-in-out 2.8s infinite,
+    text-float 6s ease-in-out 2.5s infinite;
+}
+@keyframes write-in {
+  from { clip-path: inset(-30% 100% -30% -10%); opacity: .2; }
+  to   { clip-path: inset(-30% -10% -30% -10%); opacity: 1; }
+}
+@keyframes text-float { 50% { transform: translateY(-4px); } }
+@keyframes shimmer {
+  0%   { background-position: 100% 0; }
+  45%, 100% { background-position: 0 0; }
 }
 .arch__logo {
   width: min(300px, 78%); margin: 0 auto;
