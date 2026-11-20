@@ -29,7 +29,6 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 body {
   margin: 0;
@@ -242,7 +241,6 @@ h1, h2, h3 { margin: 0; font-weight: 500; }
 .hero__cta { margin-top: 26px; }
 .hero__hint { margin: 14px 0 0; font-family: var(--f-sans); font-size: .78rem; letter-spacing: .06em; color: var(--ink-soft); opacity: .8; }
 @media (hover: none) { .hero__hint { opacity: .7; } }
-@media (prefers-reduced-motion: reduce) { .hero__hint { display: none; } }
 
 .arch { z-index: 1; }
 
@@ -480,8 +478,3 @@ input:focus, textarea:focus { outline: none; border-color: var(--teal); box-shad
 /* ───────────── Reveal on scroll ───────────── */
 .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
 .reveal.is-in { opacity: 1; transform: none; }
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; }
-  .reveal { opacity: 1; transform: none; }
-}

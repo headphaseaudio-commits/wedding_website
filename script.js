@@ -5,7 +5,6 @@
   const DICT = window.I18N;
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
-  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ───────────── Language ───────────── */
 
@@ -246,7 +245,7 @@
       form.hidden = true;
       $('#thanks').hidden = false;
       $('#thanks').focus({ preventScroll: true });
-      $('#thanks').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+      $('#thanks').scrollIntoView({ behavior: 'smooth', block: 'center' });
       celebrate(yes);
     } catch (err) {
       console.error(err);
@@ -313,7 +312,7 @@
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  if ('IntersectionObserver' in window && !reduceMotion) {
+  if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver(entries => entries.forEach(en => {
       if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
     }), { rootMargin: '0px 0px -8% 0px' });
@@ -601,52 +600,47 @@
 
   // Burst from an element's centre (used on "yes" and on success).
   function burst(el, n = 14) {
-    if (reduceMotion || !el) return;
+    if (!el) return;
     const r = el.getBoundingClientRect();
     spawnAt(r.left + r.width / 2, r.top + r.height / 2, n);
   }
 
   function celebrate(yes) {
-    if (reduceMotion) return;
     burst($('#thanks'), yes ? 40 : 12);
   }
 
-  if (!reduceMotion) {
-    resize();
-    for (let i = 0; i < ambientCount(); i++) spawnAmbient(true);
-    schools.push(makeSchool(true, true), makeSchool(false, true));
-    if (W > 900) schools.push(makeSchool(true, false), makeSchool(false, false));
-    schools.sort((a, b) => b.far - a.far); // far schools drawn first
-    jellies.push(makeJelly(true, true), makeJelly(false, true));
-    if (W > 900) jellies.push(makeJelly(true, true), makeJelly(false, false));
-    jellies.sort((a, b) => b.far - a.far);
+  resize();
+  for (let i = 0; i < ambientCount(); i++) spawnAmbient(true);
+  schools.push(makeSchool(true, true), makeSchool(false, true));
+  if (W > 900) schools.push(makeSchool(true, false), makeSchool(false, false));
+  schools.sort((a, b) => b.far - a.far); // far schools drawn first
+  jellies.push(makeJelly(true, true), makeJelly(false, true));
+  if (W > 900) jellies.push(makeJelly(true, true), makeJelly(false, false));
+  jellies.sort((a, b) => b.far - a.far);
 
-    addEventListener('pointermove', e => { pointer.x = e.clientX; pointer.y = e.clientY; }, { passive: true });
-    document.documentElement.addEventListener('pointerleave', () => { pointer.x = pointer.y = -9999; });
-    addEventListener('resize', resize);
-    requestAnimationFrame(frame);
+  addEventListener('pointermove', e => { pointer.x = e.clientX; pointer.y = e.clientY; }, { passive: true });
+  document.documentElement.addEventListener('pointerleave', () => { pointer.x = pointer.y = -9999; });
+  addEventListener('resize', resize);
+  requestAnimationFrame(frame);
 
-    document.addEventListener('visibilitychange', () => {
-      running = !document.hidden;
-      if (running) { last = performance.now(); requestAnimationFrame(frame); }
-    });
+  document.addEventListener('visibilitychange', () => {
+    running = !document.hidden;
+    if (running) { last = performance.now(); requestAnimationFrame(frame); }
+  });
 
-    // Tap anywhere that isn't a control: pop the bubble under your finger, or blow new ones.
-    document.addEventListener('pointerdown', e => {
-      pointer.x = e.clientX; pointer.y = e.clientY;
-      if (e.pointerType !== 'mouse') setTimeout(() => { pointer.x = pointer.y = -9999; }, 700);
-      if (e.target.closest('input, textarea, select, button, a, label, .card--form')) return;
-      const hit = bubbles.findIndex(b => Math.hypot(b.x - e.clientX, b.y - e.clientY) < b.r + 8);
-      if (hit > -1) {
-        const b = bubbles.splice(hit, 1)[0];
-        pops.push({ x: b.x, y: b.y, r: Math.max(6, b.r), t: 0, spin: Math.random() });
-      } else {
-        spawnAt(e.clientX, e.clientY);
-      }
-    }, { passive: true });
-  } else {
-    canvas.remove();
-  }
+  // Tap anywhere that isn't a control: pop the bubble under your finger, or blow new ones.
+  document.addEventListener('pointerdown', e => {
+    pointer.x = e.clientX; pointer.y = e.clientY;
+    if (e.pointerType !== 'mouse') setTimeout(() => { pointer.x = pointer.y = -9999; }, 700);
+    if (e.target.closest('input, textarea, select, button, a, label, .card--form')) return;
+    const hit = bubbles.findIndex(b => Math.hypot(b.x - e.clientX, b.y - e.clientY) < b.r + 8);
+    if (hit > -1) {
+      const b = bubbles.splice(hit, 1)[0];
+      pops.push({ x: b.x, y: b.y, r: Math.max(6, b.r), t: 0, spin: Math.random() });
+    } else {
+      spawnAt(e.clientX, e.clientY);
+    }
+  }, { passive: true });
 
   /* ───────────── Go ───────────── */
   applyLang(lang);
